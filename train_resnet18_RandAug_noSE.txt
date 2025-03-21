@@ -1,0 +1,137 @@
+D:\Research\Coffee>cmd /c python train.py --dataset uskc --rand_aug True --add_se False --num_epochs 10 --lr 1e-4 --model resnet18 --scheduler cosine --ckpt_save uskc_r18_randaug_no-se_cosine-lr_max-ep-10_lr-1e-4.pth
+Labels: ['defect', 'longberry', 'peaberry', 'premium']
+Labels: ['defect', 'longberry', 'peaberry', 'premium']
+Labels: ['defect', 'longberry', 'peaberry', 'premium']
+Epoch: 1, Loss: 0.2449340671300888
+Validation Accuracy: 0.84875, Validation Loss: 21.423728942871094
+Epoch: 2, Loss: 0.15357275307178497
+Validation Accuracy: 0.83625, Validation Loss: 22.781753540039062
+Epoch: 3, Loss: 0.07947304099798203
+Validation Accuracy: 0.8975, Validation Loss: 15.544690132141113
+Epoch: 4, Loss: 0.14419984817504883
+Validation Accuracy: 0.8825, Validation Loss: 18.207489013671875
+Epoch: 5, Loss: 0.14437977969646454
+Validation Accuracy: 0.89625, Validation Loss: 16.698246002197266
+Epoch: 6, Loss: 0.04947955533862114
+Validation Accuracy: 0.916875, Validation Loss: 12.105567932128906
+Epoch: 7, Loss: 0.0723266527056694
+Validation Accuracy: 0.92375, Validation Loss: 12.121926307678223
+Epoch: 8, Loss: 0.01235902588814497
+Validation Accuracy: 0.921875, Validation Loss: 11.494752883911133
+Epoch: 9, Loss: 0.05850435048341751
+Validation Accuracy: 0.925625, Validation Loss: 10.99318790435791
+Epoch: 10, Loss: 0.01931360363960266
+Validation Accuracy: 0.92, Validation Loss: 12.478216171264648
+Test Accuracy: 0.8825
+
+D:\Research\Coffee>cmd /c python train.py --dataset uskc --rand_aug True --add_se False --num_epochs 20 --lr 1e-4 --model resnet18 --scheduler cosine --ckpt_save uskc_r18_randaug_no-se_cosine-lr_max-ep-20_lr-1e-4.pth
+Labels: ['defect', 'longberry', 'peaberry', 'premium']
+Labels: ['defect', 'longberry', 'peaberry', 'premium']
+Labels: ['defect', 'longberry', 'peaberry', 'premium']
+Epoch: 1, Loss: 0.2708413004875183
+Validation Accuracy: 0.84875, Validation Loss: 20.271217346191406
+Epoch: 2, Loss: 0.18746988475322723
+Validation Accuracy: 0.843125, Validation Loss: 24.149091720581055
+Epoch: 3, Loss: 0.053515806794166565
+Validation Accuracy: 0.884375, Validation Loss: 15.610806465148926
+Epoch: 4, Loss: 0.13877563178539276
+Validation Accuracy: 0.88375, Validation Loss: 18.67467498779297
+Epoch: 5, Loss: 0.15520375967025757
+Validation Accuracy: 0.873125, Validation Loss: 20.820606231689453
+Epoch: 6, Loss: 0.059289224445819855
+Validation Accuracy: 0.9275, Validation Loss: 10.48310661315918
+Epoch: 7, Loss: 0.05336364358663559
+Validation Accuracy: 0.911875, Validation Loss: 13.260723114013672
+Epoch: 8, Loss: 0.015337436459958553
+Validation Accuracy: 0.910625, Validation Loss: 14.801607131958008
+Epoch: 9, Loss: 0.11318027228116989
+Validation Accuracy: 0.896875, Validation Loss: 15.659073829650879
+Epoch: 10, Loss: 0.019863290712237358
+Validation Accuracy: 0.926875, Validation Loss: 11.336560249328613
+Epoch: 11, Loss: 0.012822807766497135
+Validation Accuracy: 0.92375, Validation Loss: 11.195337295532227
+Epoch: 12, Loss: 0.065038301050663
+Validation Accuracy: 0.92, Validation Loss: 13.211944580078125
+Epoch: 13, Loss: 0.017610883340239525
+Validation Accuracy: 0.92125, Validation Loss: 12.240161895751953
+Epoch: 14, Loss: 0.009749253280460835
+Validation Accuracy: 0.92375, Validation Loss: 11.066828727722168
+Epoch: 15, Loss: 0.0065471515990793705
+Validation Accuracy: 0.924375, Validation Loss: 11.933191299438477
+Epoch: 16, Loss: 0.004583753179758787
+Validation Accuracy: 0.925625, Validation Loss: 11.618797302246094
+Epoch: 17, Loss: 0.004344345536082983
+Validation Accuracy: 0.930625, Validation Loss: 10.978625297546387
+Epoch: 18, Loss: 0.007331050932407379
+Validation Accuracy: 0.936875, Validation Loss: 10.343562126159668
+Epoch: 19, Loss: 0.0025126601103693247
+Validation Accuracy: 0.92, Validation Loss: 12.690019607543945
+Epoch: 20, Loss: 0.04116600379347801
+Validation Accuracy: 0.935, Validation Loss: 9.926034927368164
+Test Accuracy: 0.890625
+
+D:\Research\Coffee>cmd /c python train.py --dataset uskc_defect --rand_aug True --add_se False --num_epochs 10 --lr 1e-4 --model resnet18 --scheduler cosine --ckpt_save defuskc_r18_randaug_no-se_cosine-lr_max-ep-10_lr-1e-4.pth
+Epoch: 1, Loss: 0.4427235722541809
+Validation Accuracy: 0.89875, Validation Loss: 12.06115436553955
+Epoch: 2, Loss: 0.10589553415775299
+Validation Accuracy: 0.896875, Validation Loss: 16.65704345703125
+Epoch: 3, Loss: 0.14122134447097778
+Validation Accuracy: 0.92375, Validation Loss: 9.798382759094238
+Epoch: 4, Loss: 0.039511580020189285
+Validation Accuracy: 0.919375, Validation Loss: 14.118334770202637
+Epoch: 5, Loss: 0.06283596158027649
+Validation Accuracy: 0.9525, Validation Loss: 6.578804016113281
+Epoch: 6, Loss: 0.012686069123446941
+Validation Accuracy: 0.929375, Validation Loss: 11.044883728027344
+Epoch: 7, Loss: 0.017282942309975624
+Validation Accuracy: 0.9475, Validation Loss: 7.529999256134033
+Epoch: 8, Loss: 0.013896523974835873
+Validation Accuracy: 0.946875, Validation Loss: 8.39690113067627
+Epoch: 9, Loss: 0.030764784663915634
+Validation Accuracy: 0.951875, Validation Loss: 7.091556549072266
+Epoch: 10, Loss: 0.0011606939369812608
+Validation Accuracy: 0.95375, Validation Loss: 7.247225284576416
+Test Accuracy: 0.91875
+
+D:\Research\Coffee>cmd /c python train.py --dataset uskc_defect --rand_aug True --add_se False --num_epochs 20 --lr 1e-4 --model resnet18 --scheduler cosine --ckpt_save defuskc_r18_randaug_no-se_cosine-lr_max-ep-20_lr-1e-4.pth
+Epoch: 1, Loss: 0.40096357464790344
+Validation Accuracy: 0.8675, Validation Loss: 15.544471740722656
+Epoch: 2, Loss: 0.1312129944562912
+Validation Accuracy: 0.909375, Validation Loss: 12.671204566955566
+Epoch: 3, Loss: 0.20037637650966644
+Validation Accuracy: 0.92875, Validation Loss: 10.935038566589355
+Epoch: 4, Loss: 0.04664052650332451
+Validation Accuracy: 0.930625, Validation Loss: 12.369051933288574
+Epoch: 5, Loss: 0.14238378405570984
+Validation Accuracy: 0.943125, Validation Loss: 8.551634788513184
+Epoch: 6, Loss: 0.0272761769592762
+Validation Accuracy: 0.934375, Validation Loss: 11.453651428222656
+Epoch: 7, Loss: 0.0035628224723041058
+Validation Accuracy: 0.946875, Validation Loss: 7.2406229972839355
+Epoch: 8, Loss: 0.012175844050943851
+Validation Accuracy: 0.95375, Validation Loss: 7.160627365112305
+Epoch: 9, Loss: 0.004782623611390591
+Validation Accuracy: 0.9475, Validation Loss: 10.776325225830078
+Epoch: 10, Loss: 0.003766120644286275
+Validation Accuracy: 0.950625, Validation Loss: 6.70296573638916
+Epoch: 11, Loss: 0.04306091368198395
+Validation Accuracy: 0.960625, Validation Loss: 6.073642253875732
+Epoch: 12, Loss: 0.010083284229040146
+Validation Accuracy: 0.9575, Validation Loss: 6.254204273223877
+Epoch: 13, Loss: 0.047865550965070724
+Validation Accuracy: 0.95375, Validation Loss: 8.459418296813965
+Epoch: 14, Loss: 0.002166959224268794
+Validation Accuracy: 0.949375, Validation Loss: 9.086459159851074
+Epoch: 15, Loss: 0.014206990599632263
+Validation Accuracy: 0.945, Validation Loss: 10.170439720153809
+Epoch: 16, Loss: 0.01311124861240387
+Validation Accuracy: 0.955, Validation Loss: 8.341632843017578
+Epoch: 17, Loss: 0.0006812081555835903
+Validation Accuracy: 0.95875, Validation Loss: 7.004551887512207
+Epoch: 18, Loss: 0.0008576492546126246
+Validation Accuracy: 0.9525, Validation Loss: 9.16441822052002
+Epoch: 19, Loss: 0.05771765112876892
+Validation Accuracy: 0.956875, Validation Loss: 8.391294479370117
+Epoch: 20, Loss: 0.006529564969241619
+Validation Accuracy: 0.958125, Validation Loss: 7.991650581359863
+Test Accuracy: 0.928125
