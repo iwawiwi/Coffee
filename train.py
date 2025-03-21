@@ -11,6 +11,7 @@ torch.manual_seed(0)
 # define arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--dataset", type=str, default="uskc", help="Dataset to use", choices=["uskc", "uskc_defect"])
+parser.add_argument("--root_path", type=str, default="D:/Research/Dataset/USK-Coffee", help="Root path of the dataset")
 parser.add_argument("--rand_aug", type=bool, default=False, help="Use RandAugment")
 parser.add_argument("--add_se", type=bool, default=False, help="Add squeeze and excitation block")
 parser.add_argument("--num_epochs", type=int, default=10, help="Number of epochs")

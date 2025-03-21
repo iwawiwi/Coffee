@@ -8,8 +8,8 @@ from torchvision import transforms
 
 
 class USKCoffeeDataset(Dataset):
-    def __init__(self, phase="train", transform=None):
-        self.root_path = "D:/Research/Dataset/USK-Coffee"
+    def __init__(self, root_path, phase="train", transform=None):
+        self.root_path = root_path
         assert phase in ["train", "test", "val"]
         
         # populate data
