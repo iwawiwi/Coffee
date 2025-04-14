@@ -113,12 +113,12 @@ if __name__ == "__main__":
             model = vit_b_16(weights=None)
         model.heads.head = torch.nn.Linear(768, num_classes)
     elif args.model == "swinb":
-        from torchvision.models import swin_b_256
+        from torchvision.models import swin_b
         if args.pretrained:
-            model = swin_b_256(weights="DEFAULT")
+            model = swin_b(weights="DEFAULT")
         else:
-            model = swin_b_256(weights=None)
-        model.heads.head = torch.nn.Linear(768, num_classes)
+            model = swin_b(weights=None)
+        model.head = torch.nn.Linear(1024, num_classes)
     elif args.model == "efficientnetb7":
         from torchvision.models import efficientnet_b7
         if args.pretrained:
@@ -158,8 +158,16 @@ if __name__ == "__main__":
                 torch.nn.init.kaiming_normal_(m.fc2.weight)
     
     # initialize the fc layer
-    torch.nn.init.kaiming_normal_(model.fc.weight)
-    torch.nn.init.zeros_(model.fc.bias)
+    if args.model != "vitb" and args.model != "swinb":
+        torch.nn.init.kaiming_normal_(model.fc.weight)
+        torch.nn.init.zeros_(model.fc.bias)
+    else:
+        if args.model == "swinb":
+            torch.nn.init.kaiming_normal_(model.head.weight)
+            torch.nn.init.zeros_(model.head.bias)
+        elif args.model == "vitb":
+            torch.nn.init.kaiming_normal_(model.heads.head.weight)
+            torch.nn.init.zeros_(model.heads.head.bias)
     
     # define the loss function
     criterion = torch.nn.CrossEntropyLoss()
