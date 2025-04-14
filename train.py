@@ -194,6 +194,7 @@ if __name__ == "__main__":
     from torch.utils.tensorboard import SummaryWriter
     log_file_path = f"runs/{args.dataset}/{args.model}_{'se' if args.add_se else 'no-se'}/ep_{args.num_epochs}/lr_{args.lr}/{'randaug' if args.rand_aug else 'no-randaug'}/{args.scheduler}"
     writer = SummaryWriter(log_file_path)
+    print(f"Tensorboard log file path: {log_file_path}")
     
     # training loop
     prev_loss = float("inf")
