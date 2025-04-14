@@ -17,7 +17,7 @@ parser.add_argument("--num_epochs", type=int, default=10, help="Number of epochs
 parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
 parser.add_argument("--batch_size", type=int, default=32, help="Batch size")
 parser.add_argument("--num_workers", type=int, default=4, help="Number of workers")
-parser.add_argument("--ckpt_save", type=str, default="best_model_resnet18.pth", help="Model path to save")
+# parser.add_argument("--ckpt_save", type=str, default="best_model_resnet18.pth", help="Model path to save")
 parser.add_argument("--model", type=str, default="resnet18", help="Model to use", choices=["resnet18", "resnet34", "resnet50", "resnet101", "resnet152", "vitb", "swinb", "efficientnetb7"])
 parser.add_argument("--pretrained", type=bool, default=True, help="Use pretrained weights")
 parser.add_argument("--scheduler", type=str, default="constant", help="Scheduler to use", choices=["constant", "cosine", "step"])
@@ -234,7 +234,7 @@ if __name__ == "__main__":
                 torch.save(model.state_dict(), f"{log_file_path}/ckpt_best.pth")
                 
     # load the best model
-    model.load_state_dict(torch.load(args.ckpt_save))
+    model.load_state_dict(torch.load(f"{log_file_path}/ckpt_best.pth"))
             
     # testing loop
     model.eval()
