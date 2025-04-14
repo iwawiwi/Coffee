@@ -189,6 +189,11 @@ if __name__ == "__main__":
     # move the model to the device
     model.to(device)
     
+    # set tensorboard
+    from torch.utils.tensorboard import SummaryWriter
+    log_file_path = f"runs/{args.dataset}/{args.model}_{'se' if args.add_se else 'no-se'}/ep_{args.num_epochs}/lr_{args.lr}/{'randaug' if args.rand_aug else 'no-randaug'}_{args.scheduler}"
+    writer = SummaryWriter(log_file_path)
+    
     # training loop
     prev_loss = float("inf")
     for epoch in range(args.num_epochs):
@@ -200,6 +205,9 @@ if __name__ == "__main__":
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
+        writer.add_scalar("Loss/train", loss.item(), epoch)
+        writer.add_scalar("Learning Rate", optimizer.param_groups[0]["lr"], epoch)
+        writer.flush()
         print(f"Epoch: {epoch+1}, Loss: {loss.item()}")
         scheduler.step()
         
@@ -216,12 +224,14 @@ if __name__ == "__main__":
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
                 val_loss += criterion(outputs, labels)
+            writer.add_scalar("Loss/val", val_loss.item(), epoch)
+            writer.flush()
             print(f"Validation Accuracy: {correct/total}, Validation Loss: {val_loss}")
             
             # save the best model
             if prev_loss > val_loss:
                 prev_loss = val_loss
-                torch.save(model.state_dict(), args.ckpt_save)
+                torch.save(model.state_dict(), f"{log_file_path}/ckpt_best.pth")
                 
     # load the best model
     model.load_state_dict(torch.load(args.ckpt_save))
@@ -238,4 +248,7 @@ if __name__ == "__main__":
             _, predicted = torch.max(outputs, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
+        writer.add_scalar("Loss/test", val_loss.item(), epoch)
+        writer.flush()
+        writer.close()
         print(f"Test Accuracy: {correct/total}")
