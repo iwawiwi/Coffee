@@ -2,7 +2,6 @@ import torch
 import argparse
 
 from torchvision import transforms
-from torchvision.models.resnet import resnet18, ResNet18_Weights, resnet34, ResNet34_Weights, resnet50, ResNet50_Weights
 from torchvision.ops import SqueezeExcitation
 
 # set random seed
@@ -19,7 +18,7 @@ parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
 parser.add_argument("--batch_size", type=int, default=32, help="Batch size")
 parser.add_argument("--num_workers", type=int, default=4, help="Number of workers")
 parser.add_argument("--ckpt_save", type=str, default="best_model_resnet18.pth", help="Model path to save")
-parser.add_argument("--model", type=str, default="resnet18", help="Model to use", choices=["resnet18", "resnet34", "resnet50"])
+parser.add_argument("--model", type=str, default="resnet18", help="Model to use", choices=["resnet18", "resnet34", "resnet50", "resnet101", "resnet152", "vitb", "swinb", "efficientnetb7"])
 parser.add_argument("--pretrained", type=bool, default=True, help="Use pretrained weights")
 parser.add_argument("--scheduler", type=str, default="constant", help="Scheduler to use", choices=["constant", "cosine", "step"])
 args = parser.parse_args()
@@ -32,9 +31,10 @@ if __name__ == "__main__":
         # Apply RandAugment on the original 256x256 image before cropping
         train_transform.append(transforms.RandAugment(num_ops=2, magnitude=9))
 
-    # Always apply CenterCrop, ToTensor, and Normalization
+    # Always apply CenterCrop, Random horizontal flip, ToTensor, and Normalization
     train_transform.extend([
         transforms.CenterCrop((224, 224)),
+        transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
@@ -56,9 +56,9 @@ if __name__ == "__main__":
         from USKCoffeeDataset import USKCoffeeDatasetDefect as CoffeeDataset
         num_classes = 2
     
-    train_dataset = CoffeeDataset(phase="train", transform=train_transform)
-    val_dataset = CoffeeDataset(phase="val", transform=test_transform)
-    test_dataset = CoffeeDataset(phase="test", transform=test_transform)
+    train_dataset = CoffeeDataset(root_path=args.root_path, phase="train", transform=train_transform)
+    val_dataset = CoffeeDataset(root_path=args.root_path, phase="val", transform=test_transform)
+    test_dataset = CoffeeDataset(root_path=args.root_path, phase="test", transform=test_transform)
     
     # define the dataloader
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size, 
@@ -70,23 +70,62 @@ if __name__ == "__main__":
     
     # define the model
     if args.model == "resnet18":
+        from torchvision.models import resnet18, ResNet18_Weights
         if args.pretrained:
             model = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
         else:
             model = resnet18(weights=None)
         model.fc = torch.nn.Linear(512, num_classes) 
     elif args.model == "resnet34":
+        from torchvision.models import resnet34, ResNet34_Weights
         if args.pretrained:
             model = resnet34(weights=ResNet34_Weights.IMAGENET1K_V1)
         else:
             model = resnet34(weights=None)
         model.fc = torch.nn.Linear(512, num_classes)
     elif args.model == "resnet50":
+        from torchvision.models import resnet50, ResNet50_Weights
         if args.pretrained:
             model = resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
         else:
             model = resnet50(weights=None)
         model.fc = torch.nn.Linear(2048, num_classes)
+    # TODO: Smua RESNET, 101, 152, ViTB, SwinB, EfficientNetB7
+    elif args.model == "resnet101":
+        from torchvision.models import resnet101, ResNet101_Weights
+        if args.pretrained:
+            model = resnet101(weights=ResNet101_Weights.IMAGENET1K_V1)
+        else:
+            model = resnet101(weights=None)
+        model.fc = torch.nn.Linear(2048, num_classes)
+    elif args.model == "resnet152":
+        from torchvision.models import resnet152, ResNet152_Weights
+        if args.pretrained:
+            model = resnet152(weights=ResNet152_Weights.IMAGENET1K_V1)
+        else:
+            model = resnet152(weights=None)
+        model.fc = torch.nn.Linear(2048, num_classes)
+    elif args.model == "vitb":
+        from torchvision.models import vit_b_16
+        if args.pretrained:
+            model = vit_b_16(weights="DEFAULT")
+        else:
+            model = vit_b_16(weights=None)
+        model.heads.head = torch.nn.Linear(768, num_classes)
+    elif args.model == "swinb":
+        from torchvision.models import swin_b_256
+        if args.pretrained:
+            model = swin_b_256(weights="DEFAULT")
+        else:
+            model = swin_b_256(weights=None)
+        model.heads.head = torch.nn.Linear(768, num_classes)
+    elif args.model == "efficientnetb7":
+        from torchvision.models import efficientnet_b7
+        if args.pretrained:
+            model = efficientnet_b7(weights="DEFAULT")
+        else:
+            model = efficientnet_b7(weights=None)
+        model.classifier[1] = torch.nn.Linear(2560, num_classes)
     else:
         raise ValueError("Model not supported")
     
