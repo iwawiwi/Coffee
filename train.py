@@ -23,7 +23,7 @@ parser.add_argument("--pretrained", type=bool, default=True, help="Use pretraine
 parser.add_argument("--scheduler", type=str, default="constant", help="Scheduler to use", choices=["constant", "cosine", "step"])
 args = parser.parse_args()
 
-if __name__ == "__main__":
+def get_train_transform_V2(args):
     # Define transforms conditionally
     train_transform = []
 
@@ -39,6 +39,33 @@ if __name__ == "__main__":
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
     train_transform = transforms.Compose(train_transform)
+    
+    return train_transform
+
+def get_train_transform_V2(args):
+    # Define transforms conditionally
+    train_transform = []
+
+    # Always apply CenterCrop first
+    train_transform.append(transforms.CenterCrop((224, 224)))
+
+    if args.rand_aug:
+        # Apply RandAugment after CenterCrop
+        train_transform.append(transforms.RandAugment(num_ops=2, magnitude=9))
+
+    # Always apply Random horizontal flip, ToTensor, and Normalization
+    train_transform.extend([
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+    train_transform = transforms.Compose(train_transform)
+    
+    return train_transform
+
+if __name__ == "__main__":
+    # Define transforms conditionally
+    train_transform = get_train_transform_V2(args)
     
     # Test transform
     test_transform = transforms.Compose([
