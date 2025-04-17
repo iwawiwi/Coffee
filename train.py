@@ -53,9 +53,8 @@ def get_train_transform_V2(args):
         # Apply RandAugment after CenterCrop
         train_transform.append(transforms.RandAugment(num_ops=2, magnitude=9))
 
-    # Always apply Random horizontal flip, ToTensor, and Normalization
+    # Always apply ToTensor, and Normalization
     train_transform.extend([
-        transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
